@@ -1,4 +1,4 @@
-package com.microservices.currency_exchange_service;
+package com.microservices.currency_exchange_service.entity;
 
 import java.math.BigDecimal;
 

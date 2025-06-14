@@ -2,7 +2,11 @@ package com.microservices.currency_conversion_service;
 
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+ 
 public class CurrencyConversion {
+	
+	@JsonIgnore
 	private Long id;
 	private String from;
 	private String to;

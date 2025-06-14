@@ -2,6 +2,7 @@ package com.microservices.currency_conversion_service;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+/**
+ * Configuration class to define and register a RestTemplate bean.
+ */
 @Configuration(proxyBeanMethods = false)
 class RestTemplateConfiguration {
     
@@ -71,5 +75,29 @@ public class CurrencyConversionController {
 				quantity.multiply(currencyConversion.getConversionMultiple()), 
 				currencyConversion.getEnvironment()+ " " + "rest template");	
 	}
+	
+	@GetMapping("/currency-conversion-live/from/{from}/to/{to}/quantity/{quantity}")
+	public CurrencyConversion calculateCurrencyConversionLive(
+	        @PathVariable String from,
+	        @PathVariable String to,
+	        @PathVariable BigDecimal quantity) {
+
+	    Map<String, String> uriVariables = new HashMap<>();
+	    uriVariables.put("from", from);
+	    uriVariables.put("to", to);
+
+		ResponseEntity<CurrencyConversion> responseEntity = restTemplate.getForEntity
+				("http://localhost:8000/currency-exchange-live-rate/from/{from}/to/{to}", 
+						CurrencyConversion.class, uriVariables);
+
+		CurrencyConversion currencyConversion = responseEntity.getBody();
+		
+		return new CurrencyConversion(currencyConversion.getId(), 
+				from, to, quantity, 
+				currencyConversion.getConversionMultiple(), 
+				quantity.multiply(currencyConversion.getConversionMultiple()), 
+				currencyConversion.getEnvironment()+ " " + "rest template");	
+	}
+
 
 }

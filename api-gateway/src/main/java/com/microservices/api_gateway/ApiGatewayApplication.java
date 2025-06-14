@@ -1,6 +1,5 @@
 package com.microservices.api_gateway;
 
-// Hello World
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

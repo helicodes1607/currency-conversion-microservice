@@ -5,6 +5,7 @@ import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+// Defines the routes for the API Gateway
 @Configuration
 public class ApiGatewayConfiguration {
 	
